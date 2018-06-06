@@ -15,15 +15,17 @@ https://hub.docker.com/_/sentry/
 
 1 - Clone this repository  
 2 - Run `git submodule init` and `git submodule update`  
-3 - Set connection to Sentry in `blockchain-observer/BlockchainObserver/appsettings.json` and `blockchain-observer/BlockchainObserver/appsettings.json`  
+3 - Set connection to Sentry in `webapi/WebApi/appsettings.json` and `blockchain-observer/BlockchainObserver/appsettings.json`  
 4 - Start a litecoind node: https://github.com/litecoin-project/litecoin  
 5 - Set the credentials for the JSON RPC API of your Litecoin node in `blockchain-observer/BlockchainObserver/appsettings.json`.  
 6 - Set your IP and port where WebAPI will run in `frontend/src/appSettings.json`  
-7 - Open the RabbitMQ administration UI and Create 3 queues: `BTC`, `LTC` and `WebAPI`.  
-8 - In the WebDAV container volume, create directory `/media/invoices`  
-9 - Run Entity Framework migrations on WebAPI and blockchain_observer. This will create the DB scheme.  
-10 - Add mail queue endpoint to scheduler: open `crontab -e` and add `*/2 * * * * curl http://127.0.0.1:8080/api/Email/sendFromQueue` - this will send new email messages from queue every 2 minutes. Replace "127.0.0.1:8080" with IP and port of your WebAPI.  
-11 – Restart docker compose, open the UI, and register a user account.  
+7 – Go the root folder of this project, where you see the docker-compose.yml file and run `sudo docker-compose up`. This will create all containers, including MariaDB database and RabbitMQ message broker.
+8 - Open the RabbitMQ administration UI and Create 3 queues: `BTC`, `LTC` and `WebAPI`.  
+9 - In the WebDAV container volume, create directory `/media/invoices`  
+10 - Connect to the MariaDB server (using MySQL workbench, or HeidiSQL, or the command line client), and create 2 databases: `octopus` (for WebAPI) and `blockchain_observer` (for the LTC blockchain observer instance).
+11 - Run Entity Framework migrations on WebAPI and blockchain_observer. This will create the DB scheme.  
+12 - Add mail queue endpoint to scheduler: open `crontab -e` and add `*/2 * * * * curl http://127.0.0.1:8080/api/Email/sendFromQueue` - this will send new email messages from queue every 2 minutes. Replace "127.0.0.1:8080" with IP and port of your WebAPI.  
+13 – Restart docker compose, open the UI, and register a user account.  
 
 ### For UI development
 
