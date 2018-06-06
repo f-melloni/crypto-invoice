@@ -1,0 +1,9 @@
+[submodule "frontend"]
+	path = frontend
+	url = git@github.com:simplifate/crypto-invoice-frontend.git
+[submodule "webapi"]
+	path = webapi
+	url = git@github.com:simplifate/crypto-invoice-web-api.git
+[submodule "blockchain-observer"]
+	path = blockchain-observer
+	url = git@github.com:simplifate/crypto-invoice-blockchain-observer.git
