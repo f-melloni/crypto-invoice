@@ -1,0 +1,59 @@
+version: '3.3'
+
+services:
+  frontend:
+    build: frontend
+    image: frontend
+    restart: always
+    ports:
+      - "8080:8080" # Application - only this should be exposed on production
+    depends_on:
+      - webapi
+  webapi:
+    build: webapi/WebApi
+    image: webapi
+    restart: always
+    depends_on:
+      - mariadb
+      - webdav
+      - rabbit
+  blockchain-observer:
+    build: blockchain-observer/BlockchainObserver
+    image: blockchain-observer
+    restart: always
+    depends_on:
+      - mariadb
+      - rabbit
+  mariadb:
+    image: "mariadb:10.3"
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Kryptofoctopus12"
+      MYSQL_USER: "octopus"
+      MYSQL_PASSWORD: "Kryptofoctopus12"
+    ports:
+      - "3306:3306" # DB connection for debugging
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "Kryptofoctopus12"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    ports:
+      - "15672:15672" # UI for RabbitMQ
+  webdav:
+    build: webdav
+    image: webdav
+    restart: always
+    volumes:
+      - webdav:/media/
+volumes:
+    dbdata:
+    webdav:
+    rabbitmqdata:
