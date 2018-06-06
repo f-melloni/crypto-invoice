@@ -22,7 +22,8 @@ https://hub.docker.com/_/sentry/
 7 - Open the RabbitMQ administration UI and Create 3 queues: `BTC`, `LTC` and `WebAPI`.  
 8 - In the WebDAV container volume, create directory `/media/invoices`  
 9 - Run Entity Framework migrations on WebAPI and blockchain_observer. This will create the DB scheme.  
-10 – Restart docker compose, open the UI, and register a user account.  
+10 - Add mail queue endpoint to scheduler: open `crontab -e` and add `*/2 * * * * curl http://127.0.0.1:8080/api/Email/sendFromQueue` - this will send new email messages from queue every 2 minutes. Replace "127.0.0.1:8080" with IP and port of your WebAPI.  
+11 – Restart docker compose, open the UI, and register a user account.  
 
 ### For UI development
 
