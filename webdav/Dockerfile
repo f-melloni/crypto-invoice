@@ -9,5 +9,6 @@ RUN rm /etc/nginx/sites-enabled/*
 
 COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
+RUN mkdir -p /media/invoices
 RUN chmod a+rwx /media -R
 CMD /entrypoint.sh && nginx -g "daemon off;"
