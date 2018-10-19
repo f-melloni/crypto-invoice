@@ -13,7 +13,7 @@ https://hub.docker.com/_/sentry/
 
 ### Installation steps
 
-1 - Clone this repository  
+1 - Clone this repository using SSH (submodules don't work with HTTPS)  
 2 - Run `git submodule init` and `git submodule update`  
 3 - Set connection to Sentry in `webapi/WebApi/appsettings.json` and `blockchain-observer/BlockchainObserver/appsettings.json`  
 4 - Start a litecoind node: https://github.com/litecoin-project/litecoin  
